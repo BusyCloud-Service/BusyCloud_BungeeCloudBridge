@@ -13,6 +13,8 @@ import de.plugdev.bungee.networking.RconDecoder;
 import de.plugdev.bungee.networking.RconServerRegistry;
 import de.terrarier.netlistening.Client;
 import de.terrarier.netlistening.api.DataContainer;
+import de.terrarier.netlistening.api.event.ConnectionTimeoutEvent;
+import de.terrarier.netlistening.api.event.ConnectionTimeoutListener;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -47,7 +49,7 @@ public class CloudBridge extends Plugin {
 		}
 		ProxyServer.getInstance().getConsole().sendMessage(new TextComponent(cloudKey));
 		con.delete();
-
+		
 		DataContainer dataContainer = new DataContainer();
 		dataContainer.add("Proxy");
 		dataContainer.add("linkproxy");
@@ -57,6 +59,14 @@ public class CloudBridge extends Plugin {
 		client.registerListener(new RconDecoder());
 		client.registerListener(new RconServerRegistry());
 		client.registerListener(new DecodePingListener());
+		client.registerListener(new ConnectionTimeoutListener() {
+			
+			@Override
+			public void trigger(ConnectionTimeoutEvent event) {
+				ProxyServer.getInstance().getConsole().sendMessage(new TextComponent("§cConnection to Cloud timed out. Stopping Cloud."));
+				ProxyServer.getInstance().stop("§5[BusyCloud-Service] §cConnection to Cloud timed out. Stopping Cloud.");
+			}
+		});
 
 		ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerConnect());
 		ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerDisconnect());

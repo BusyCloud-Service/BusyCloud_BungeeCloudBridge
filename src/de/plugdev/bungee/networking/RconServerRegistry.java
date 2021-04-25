@@ -23,7 +23,7 @@ public class RconServerRegistry implements DecodeListener {
 			ProxyServer.getInstance().getServers().put(info.getName(), info);
 
 			if(isMain) {
-				CloudBridge.mainList.add(info);
+				CloudBridge.getCloudBridge().getTempInformations().getMainList().add(info);
 			}
 		} else if (key.equalsIgnoreCase("unregisterserver")) {
 
@@ -32,8 +32,8 @@ public class RconServerRegistry implements DecodeListener {
 			ServerInfo info = ProxyServer.getInstance().getServerInfo(serverName);
 			ProxyServer.getInstance().getServers().remove(info.getName());
 
-			if (CloudBridge.mainList.contains(info)) {
-				CloudBridge.mainList.remove(info);
+			if (CloudBridge.getCloudBridge().getTempInformations().getMainList().contains(info)) {
+				CloudBridge.getCloudBridge().getTempInformations().getMainList().remove(info);
 			}
 		}
 	}

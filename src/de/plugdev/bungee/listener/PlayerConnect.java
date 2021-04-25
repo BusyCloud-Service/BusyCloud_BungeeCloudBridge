@@ -30,12 +30,12 @@ public class PlayerConnect implements Listener {
 
 	@EventHandler
 	public void onPlayerTarget(ServerConnectEvent event) {
-		if (!CloudBridge.mainList.isEmpty()) {
-			if(!CloudBridge.playerList.contains(event.getPlayer())) {
+		if (!CloudBridge.getCloudBridge().getTempInformations().getMainList().isEmpty()) {
+			if(!CloudBridge.getCloudBridge().getTempInformations().getPlayerList().contains(event.getPlayer())) {
 				
-				CloudBridge.playerList.add(event.getPlayer());
+				CloudBridge.getCloudBridge().getTempInformations().getPlayerList().add(event.getPlayer());
 				ServerInfo prefferedInfo = null;
-				for(ServerInfo info : CloudBridge.mainList) {
+				for(ServerInfo info : CloudBridge.getCloudBridge().getTempInformations().getMainList()) {
 					if(prefferedInfo == null) {
 						prefferedInfo = info;
 					}

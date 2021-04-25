@@ -1,24 +1,22 @@
 package de.plugdev.bungee;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
 
 import de.plugdev.bungee.commands.CommandHub;
 import de.plugdev.bungee.listener.PlayerConnect;
 import de.plugdev.bungee.listener.PlayerDisconnect;
+import de.plugdev.bungee.listener.PlayerPing;
 import de.plugdev.bungee.listener.PlayerSwitchServer;
 import de.plugdev.bungee.networking.DecodePingListener;
 import de.plugdev.bungee.networking.RconDecoder;
 import de.plugdev.bungee.networking.RconServerRegistry;
+import de.plugdev.bungee.utils.TempInformations;
 import de.terrarier.netlistening.Client;
 import de.terrarier.netlistening.api.DataContainer;
 import de.terrarier.netlistening.api.event.ConnectionTimeoutEvent;
 import de.terrarier.netlistening.api.event.ConnectionTimeoutListener;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.config.ServerInfo;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class CloudBridge extends Plugin {
@@ -26,9 +24,7 @@ public class CloudBridge extends Plugin {
 	private Client client;
 	private static CloudBridge cloudBridge;
 	private String cloudKey;
-	
-	public static List<ServerInfo> mainList = new LinkedList<>();
-	public static List<ProxiedPlayer> playerList = new LinkedList<>();
+	private TempInformations tempInformations;
 
 	public static void main(String[] args) {
 	}
@@ -36,6 +32,7 @@ public class CloudBridge extends Plugin {
 	@Override
 	public void onEnable() {
 
+		tempInformations = new TempInformations();
 		cloudBridge = this;
 
 		client = new Client.Builder("localhost", 1130).timeout(15000).build();
@@ -71,6 +68,7 @@ public class CloudBridge extends Plugin {
 		ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerConnect());
 		ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerDisconnect());
 		ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerSwitchServer());
+		ProxyServer.getInstance().getPluginManager().registerListener(this, new PlayerPing());
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new CommandHub("hub"));
 
 	}
@@ -90,6 +88,10 @@ public class CloudBridge extends Plugin {
 
 	public static CloudBridge getCloudBridge() {
 		return cloudBridge;
+	}
+	
+	public TempInformations getTempInformations() {
+		return tempInformations;
 	}
 
 }

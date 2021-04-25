@@ -10,7 +10,6 @@ public class CommandHub extends Command {
 
 	public CommandHub(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -18,7 +17,7 @@ public class CommandHub extends Command {
 		if(args.length == 0) {
 			ProxiedPlayer player = (ProxiedPlayer) sender;
 			ServerInfo prefferedInfo = null;
-			for(ServerInfo info : CloudBridge.mainList) {
+			for(ServerInfo info : CloudBridge.getCloudBridge().getTempInformations().getMainList()) {
 				if(prefferedInfo == null) {
 					prefferedInfo = info;
 				}

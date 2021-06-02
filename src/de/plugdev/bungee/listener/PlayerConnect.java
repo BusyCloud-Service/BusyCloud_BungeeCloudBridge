@@ -18,7 +18,7 @@ public class PlayerConnect implements Listener {
 		container.add("playerconnect");
 		container.add(CloudBridge.getCloudBridge().getCloudKey());
 		container.add(event.getPlayer().getName());
-		container.add(event.getPlayer().getUniqueId());
+		container.add(event.getPlayer().getUniqueId().toString());
 		container.add("None");
 		container.add(event.getPlayer().getAddress().getAddress().getHostAddress());
 

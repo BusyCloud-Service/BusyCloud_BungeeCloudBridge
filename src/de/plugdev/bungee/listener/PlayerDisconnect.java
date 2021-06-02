@@ -14,7 +14,7 @@ public class PlayerDisconnect implements Listener {
 		container2.add("Proxy");
 		container2.add("playerdisconnect");
 		container2.add(CloudBridge.getCloudBridge().getCloudKey());
-		container2.add(event.getPlayer().getUniqueId());
+		container2.add(event.getPlayer().getUniqueId().toString());
 		CloudBridge.getCloudBridge().getClient().sendData(container2);
 		
 		if(CloudBridge.getCloudBridge().getTempInformations().getPlayerList().contains(event.getPlayer())) {

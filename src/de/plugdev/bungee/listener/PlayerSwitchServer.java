@@ -14,7 +14,7 @@ public class PlayerSwitchServer implements Listener {
 		container.add("Proxy");
 		container.add("playerswitchserver");
 		container.add(CloudBridge.getCloudBridge().getCloudKey());
-		container.add(event.getPlayer().getUniqueId());
+		container.add(event.getPlayer().getUniqueId().toString());
 		container.add(event.getFrom().getName());
 		container.add(event.getPlayer().getServer().getInfo().getName());
 		
